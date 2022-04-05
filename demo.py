@@ -64,8 +64,8 @@ def main(args):
 		x = graph.get_tensor_by_name('inputs:0')
 		room_type_logit = graph.get_tensor_by_name('Cast:0')
 		room_boundary_logit = graph.get_tensor_by_name('Cast_1:0')
-
-		# infer results
+  
+  		# infer results
 		[room_type, room_boundary] = sess.run([room_type_logit, room_boundary_logit],\
 										feed_dict={x:im.reshape(1,512,512,3)})
 		room_type, room_boundary = np.squeeze(room_type), np.squeeze(room_boundary)
