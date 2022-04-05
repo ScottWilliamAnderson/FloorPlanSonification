@@ -1,0 +1,11 @@
+matplotlib
+numpy
+scipy
+tensorflow==1.15.0
+tensorflow-gpu==1.15.2
+scikit-image
+Pillow
+PyOpenAL
+pyttsx3
+hypothesis
+bresenham

@@ -1,0 +1,6 @@
+# pretrained/ filter=lfs diff=lfs merge=lfs -text
+# pretrained_r3d.data-00000-of-00001 filter=lfs diff=lfs merge=lfs -text
+# /pretrained/pretrained_r3d.data-00000-of-00001 filter=lfs diff=lfs merge=lfs -text
+# pretrained/pretrained_r3d.data-00000-of-00001 filter=lfs diff=lfs merge=lfs -text
+# *.data-00000-of-00001 filter=lfs diff=lfs merge=lfs -text
+*.data-00000-of-00001 filter=lfs diff=lfs merge=lfs -text
