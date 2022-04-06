@@ -388,7 +388,7 @@ class Grid():
             startY (int): the y coordinate of the starting pixel
             openingX (int): the center pixel's x coordinate of an opening shape
             openingY (int): the center pixel's y coordinate of an opening shape
-            openingListLength (list): the opening shape as a list of the pixels that it is made up of
+            openingListLength (int): size of the opening shape's list of pixels that it is made up of
 
         Returns:
             list: two pixels on the opposite side of the opening shape that follow the line from the starting position to the center of the shape
@@ -425,7 +425,7 @@ class Grid():
             startY (int): the y coordinate of the starting pixel
             openingX (int): the center pixel's x coordinate of an opening shape
             openingY (int): the center pixel's y coordinate of an opening shape
-            openingListLength (_type_): the size of the shape in pixels (i.e. the length of the shape as an array)
+            openingListLength (list): the size of the shape in pixels (i.e. the length of the shape as an array)
 
         Returns:
             string: the most common tile on the other side of an opening
