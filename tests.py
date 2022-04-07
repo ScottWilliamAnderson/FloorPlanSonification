@@ -22,6 +22,7 @@ def runAllTests():
     countTilesTest()
     lineTest()
     getObstructionsTest()
+    print("all tests passed")
 
 
 DefaultSize = 128

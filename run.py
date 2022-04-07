@@ -1,4 +1,4 @@
-from math import floor
+import math
 from tkinter.ttk import Progressbar
 from map import mapGenerator
 from sound import *
@@ -6,6 +6,7 @@ from PIL import ImageTk,Image
 import tkinter as tk
 from tkinter import filedialog
 import demo as m
+from tests import *
 
 class Gui():
     
@@ -17,6 +18,7 @@ class Gui():
         
         self.orientations = {v: k for k, v in self.facing.items()}
         self.hatOrientation = "HatUp.png"
+        runAllTests()
         self.startup()
         
     def rotateHat(self, hat, buttonPressed):
@@ -58,6 +60,10 @@ class Gui():
     def quit(self):
         """shut down the software
         """        
+        try:
+            self.audio.quit()
+        except:
+            pass
         self.root.destroy()
         sys.exit(0)
 
@@ -116,14 +122,14 @@ class Gui():
         self.canvas.pack(fill=tk.BOTH, expand=True)
         mapDir = os.path.join(os.getcwd(), "map", "saved.png")
         img = Image.open(mapDir)
-        fullscreenImg = ImageTk.PhotoImage(self.resize_PIL(img, min(int(self.root.winfo_height()), int(self.root.winfo_width()/2))))
+        fullscreenImg = ImageTk.PhotoImage(self.resizeImage(img, min(int(self.root.winfo_height()), int(self.root.winfo_width()/2))))
         self.canvas.create_image(0, 0, image=fullscreenImg, anchor="nw") 
         
         global scale
         scale = fullscreenImg.width()/img.size[0]
         
         original = Image.open(self.floorPlanPath)
-        originalImage = ImageTk.PhotoImage(self.resize_PIL(original, min(int(self.root.winfo_height()), int(self.root.winfo_width()/2))))
+        originalImage = ImageTk.PhotoImage(self.resizeImage(original, min(int(self.root.winfo_height()), int(self.root.winfo_width()/2))))
         reference = self.canvas.create_image(self.root.winfo_width(), self.root.winfo_height(), image=originalImage, anchor="se")
         self.canvas.tag_raise(reference)
         
@@ -161,7 +167,7 @@ class Gui():
         self.canvas.pack(fill=tk.BOTH, expand=True)
         mapDir = os.path.join(os.getcwd(), "map", "example.png")
         img = Image.open(mapDir)
-        fullscreenImg = ImageTk.PhotoImage(self.resize_PIL(img, min(int(self.root.winfo_height()), int(self.root.winfo_width()/2))))
+        fullscreenImg = ImageTk.PhotoImage(self.resizeImage(img, min(int(self.root.winfo_height()), int(self.root.winfo_width()/2))))
         self.canvas.create_image(0, 0, image=fullscreenImg, anchor="nw") 
         self.canvas.bind("<Button-1>", self.mouseClick)
         self.root.bind('q', self.rotateCounterClockwise)
@@ -173,7 +179,7 @@ class Gui():
         
         originalDir = os.path.join(os.getcwd(), "demo", "exampleSquare.jpg")
         original = Image.open(originalDir)
-        originalImage = ImageTk.PhotoImage(self.resize_PIL(original, min(int(self.root.winfo_height()), int(self.root.winfo_width()/2))))
+        originalImage = ImageTk.PhotoImage(self.resizeImage(original, min(int(self.root.winfo_height()), int(self.root.winfo_width()/2))))
         reference = self.canvas.create_image(self.root.winfo_width(), self.root.winfo_height(), image=originalImage, anchor="se")
         self.canvas.tag_raise(reference)
         self.canvas.update()
@@ -241,7 +247,7 @@ class Gui():
         self.canvas.delete
 
     # resize Image to fit the fullscreen, taken from https://stackoverflow.com/questions/52234971/how-do-i-make-imageops-fit-not-crop
-    def resize_PIL(self, im, output_edge):
+    def resizeImage(self, im, output_edge):
         """resized the image to fit the output_edge without changing its aspect ratio
 
         Args:
