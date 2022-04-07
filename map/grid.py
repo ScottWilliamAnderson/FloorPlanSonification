@@ -1,6 +1,5 @@
 from collections import Counter
 import copy
-from re import search
 import numpy as np
 from .opening import Opening
 
@@ -417,7 +416,7 @@ class Grid():
         return line
 
     # todo: remove OpeningX and openingY, replace with averagePixel()
-    def otherSide(self, startX, startY, openingX, openingY, openingListLength):
+    def otherSide(self, startX, startY, openingX, openingY, openingList):
         """returns the most common type of tile on the other side of an opening from a given location
 
         Args:
@@ -425,13 +424,13 @@ class Grid():
             startY (int): the y coordinate of the starting pixel
             openingX (int): the center pixel's x coordinate of an opening shape
             openingY (int): the center pixel's y coordinate of an opening shape
-            openingListLength (list): the size of the shape in pixels (i.e. the length of the shape as an array)
+            openingList (list): the shape in pixels (i.e. the shape as an array)
 
         Returns:
             string: the most common tile on the other side of an opening
         """
         flipsidePixels = self.passThroughOpening(
-            startX, startY, openingX, openingY, openingListLength)
+            startX, startY, openingX, openingY, openingList)
         pixelsToSearch = []
         for pixel in flipsidePixels:
             adjacent = self.getAdjacentCoords(pixel[0], pixel[1])
