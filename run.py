@@ -107,7 +107,7 @@ class Gui():
         
         self.canvas = tk.Canvas(self.root, bg='white', highlightthickness=0)
         running = self.canvas.create_text(self.root.winfo_width()/2, self.root.winfo_height()/2, text="Running Model...", font=('arial', 20, 'bold'))
-        timed = self.canvas.create_text(self.root.winfo_width()/2, (self.root.winfo_height()/9) * 5, text="Average expected runtime: 25 seconds", font=('arial', 10, 'italic'))
+        timed = self.canvas.create_text(self.root.winfo_width()/2, (self.root.winfo_height()/9) * 5, text="Average expected runtime: ~25 seconds", font=('arial', 10, 'italic'))
         self.canvas.pack(fill=tk.BOTH, expand=True)
         self.canvas.update()
         m.main(self.floorPlanPath)

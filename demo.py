@@ -1,3 +1,20 @@
+# PLEASE NOTE:
+# This demo.py file is provided by the authors of the paper:
+# @article{zeng,
+#   doi = {10.48550/ARXIV.1908.11025},
+#   url = {https://arxiv.org/abs/1908.11025},
+#   author = {Zeng,  Zhiliang and Li,  Xianzhi and Yu,  Ying Kin and Fu,  Chi-Wing},
+#   keywords = {Computer Vision and Pattern Recognition (cs.CV),  FOS: Computer and information sciences,  FOS: Computer and information sciences, deep, floorplan},
+#   title = {Deep Floor Plan Recognition Using a Multi-Task Network with Room-Boundary-Guided Attention},
+#   publisher = {arXiv},
+#   year = {2019},
+# }
+
+# https://github.com/zlzeng/DeepFloorplan
+
+# I have made only minor modifications to this file to make it compatible with the rest of the project.
+
+
 import os
 import argparse
 import numpy as np
