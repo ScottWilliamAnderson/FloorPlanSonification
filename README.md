@@ -77,5 +77,5 @@ The surrounding doors and windows will be represented through directional sound,
 
 To exit the program, press *esc*
 
-A good way to map out the floor plan in your: try listening in each room!
+A good way to map out the floor plan in your mind: try listening in each room!
 
