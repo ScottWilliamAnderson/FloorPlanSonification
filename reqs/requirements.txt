@@ -7,6 +7,5 @@ PyOpenAL
 pyttsx3
 hypothesis
 bresenham
-tkinter
 tensorflow==1.15.0
 tensorflow-gpu==1.15.2
