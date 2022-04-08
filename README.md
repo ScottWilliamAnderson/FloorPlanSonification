@@ -1,99 +1,81 @@
-# Deep Floor Plan Recognition using a Multi-task Network with Room-boundary-Guided Attention
-By Zhiliang ZENG, Xianzhi LI, Ying Kin Yu, and Chi-Wing Fu
 
-[2021/07/26: updated download link]
+## Installation Guide
 
-[2019/08/28: updated train/test/score code & dataset]
+This sonification software is best used with headphones.
 
-[2019/07/29: updated demo code & pretrained model]
-
-## Introduction
-
-This repository contains the code & annotation data for our ICCV 2019 paper: ['Deep Floor Plan Recognition Using a Multi-Task Network with Room-Boundary-Guided Attention'](https://arxiv.org/abs/1908.11025). In this paper, we present a new method for recognizing floor plan elements by exploring the spatial relationship between floor plan elements, model a hierarchy of floor plan elements, and design a multi-task network to learn to recognize room-boundary and room-type elements in floor plans.
-
-## Requirements
-
-- Please install OpenCV
-- Please install Python 2.7
-- Please install tensorflow-gpu
-
-Our code has been tested by using tensorflow-gpu==1.10.1 & OpenCV==3.1.0. We used Nvidia Titan Xp GPU with CUDA 9.0 installed.
-
-## Python packages
-
-- [numpy]
-- [scipy]
-- [Pillow]
-- [matplotlib]
-
-## Data
-
-We share all our annotations and train-test split file [here](https://mycuhk-my.sharepoint.com/:f:/g/personal/1155052510_link_cuhk_edu_hk/EseSIeHQgPxArPlNpGdVp38BIjUg70jMiAO-w4f3s8B_dg?e=UXKbYO). Or download the annotation using the link in file "dataset/download_links.txt". The additional round plan is included in the annotations.
-
-Our annotations are saved as png format. The name with suffixes "\_wall.png", "\_close.png" and "\_room.png" are denoted "wall", "door & window" and "room types" label, respectively. We used these labels to train our multi-task network.
-
-The name with suffixes "\_close_wall.png" is the combination of "wall", "door & window" label. We don't use this label in our paper, but maybe useful for other tasks.
-
-The name with suffixes "\_multi.png" is the combination of all the labels. We used this kind of label to retrain the general segmentation network.
-
-We also provide our training data on R3D dataset in "tfrecord" format, which can improve the loading speed during training.
-
-To create the "tfrecord" training set, please refer to the example code in "utils/create_tfrecord.py"
-
-All the raw floor plan image please refer to the following two links:
-
-- R2V: <https://github.com/art-programmer/FloorplanTransformation.git>
-- R3D: <http://www.cs.toronto.edu/~fidler/projects/rent3D.html>
-
-## Usage
-
-To use our demo code, please first download the pretrained model, find the link in "pretrained/download_links.txt" file, unzip and put it into "pretrained" folder, then run
-
+First, to download the code to the software
 ```bash
-python demo.py --im_path=./demo/45719584.jpg 
+git clone https://github.com/ScottWilliamAnderson/FloorPlanSonification.git
 ```
 
-To train the network, simply run
 
-```bash
-python main.py --pharse=Train
-```
+To use only the demo floor plan sonification (does not require a CUDA compatible GPU)
+- Please install Python 3.6.1
+  - The easiest way to do this is using a conda environment, using the command:
+  ```bash
+	conda create --name CONDAENVIRONMENTNAME python=3.6.1
+	```
 
-Run the following command to generate network outputs, all results are saved as png format.
+- Please install the python modules found in /reqs/requirements.txt
+    ```bash
+	pip install -r reqs/requirements.txt
+	```
+	or
+	```bash
+	conda install --file reqs/requirements.txt
+	```
 
-```bash
-python main.py --pharse=Test
-```
+To also use the Sonification tool with any floor plan you wish: (requires a CUDA compatible GPU: https://developer.nvidia.com/cuda-gpus)
+- Please install CUDA version 10.0, from the following link:
+	- https://developer.nvidia.com/cuda-10.0-download-archive
+- Please install a version of cuDNN compatible with CUDA 10.0
+	- https://developer.nvidia.com/rdp/cudnn-archive
+- To manually verify you have the required .dll files to run the model, navigate to 
+  -  \Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.0\bin (or equivalent)
+- You should see the following files included in the folder:
+	- cudart64_100.dll
+	- nvcuda.dll
+	- cublas64_100.dll
+	- cufft64_100.dll
+	- curand64_100.dll
+	- cusolver64_100.dll
+	- cusparse64_100.dll
+	- cudnn64_7.dll
+	- cudart64_100.dll
+	- cublas64_100.dll
+	- cufft64_100.dll
+	- curand64_100.dll
+	- cusolver64_100.dll
+	- cusparse64_100.dll
 
-To compute the evaluation metrics, please first inference the results, then simply run
+- Please also ensure the native text-to-speech system for your operating system is currently downloaded
 
-```bash
-python scores.py --dataset=R3D
-```
+## User Guide
+- You may only use this software with floor plans you have the license or permission to use.
+- to run the downloaded Floor Plan Sonification tool:
+    ```bash
+	python run.py
+	```
 
-To use our post-processing method, please first inference the results, then simply run
+The software should start fullscreen, and two buttons should be available on a white background:
+1. Use Example Floor Plan
 
-```bash
-python postprocess.py
-```
+2. Upload a Floor Plan
 
-or 
+If you don't have a CUDA-enabled GPU, select "Use Example Floor Plan"
+If you wish to use your CUDA-enabled GPU to sonify a floor plan of your choosing, select "Upload a Floor Plan". This will prompt you to provide the path to the floor plan image.
 
-```bash
-python postprocess.py --result_dir=./[result_folder_path]
-```
+When the software has prepared the floor plan for sonification, you can use your mouse (or tap on touch enabled devices) to click anywhere on the generated floor plan (visible on the left half of the screen).
 
-## Citation
+This should display a hat icon on the location where you are "listening" to the surrounding area
+Your location information, and room that you are in will be played through your headset.
+The surrounding doors and windows will be represented through directional sound, to indicate where they are in location to you.
 
-If you find our work useful in your research, please consider citing:
+- To rotate your head counter-clockwise by 90 degrees press *Q*
 
----
+- To rotate your head clockwise by 90 degrees press *E*
 
-	@InProceedings{zlzeng2019deepfloor,
-		author = {Zhiliang ZENG, Xianzhi LI, Ying Kin Yu, and Chi-Wing Fu},
-		title = {Deep Floor Plan Recognition using a Multi-task Network with Room-boundary-Guided Attention},
-		booktitle = {IEEE International Conference on Computer Vision (ICCV)},
-		year = {2019}
-	}
+To exit the program, press *esc*
 
----
+A good way to map out the floor plan in your: try listening in each room!
+

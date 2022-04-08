@@ -2,7 +2,7 @@ matplotlib
 numpy
 scipy
 scikit-image
-Pillow
+Pillow==8.4.0
 PyOpenAL
 pyttsx3
 hypothesis
