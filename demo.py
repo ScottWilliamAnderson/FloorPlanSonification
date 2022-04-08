@@ -93,12 +93,10 @@ def main(args):
 		floorplan[room_boundary==2] = 10
 		floorplan_rgb = ind2rgb(floorplan)
 
-		# plot results
 		plt.subplot(121)
 		plt.imshow(im)
 		plt.subplot(122)
 		plt.imsave(os.path.join(os.getcwd(), 'map', 'result.png'),floorplan_rgb/255)
-		# plt.show()
 		return
 
 if __name__ == '__main__':

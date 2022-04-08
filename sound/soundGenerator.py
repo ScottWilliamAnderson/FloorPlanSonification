@@ -112,7 +112,6 @@ class SoundGenerator():
                 if isDoor:
                     # open the mono wave file
                     door = os.path.join(os.getcwd(), "sound", "door.wav")
-                # print(test)
                     source = oalOpen(door)
                 else:
                     window = os.path.join(os.getcwd(), "sound", "window.wav")
@@ -121,7 +120,6 @@ class SoundGenerator():
                 # increase the sound "dampening" to emulate a real room
                 source.set_rolloff_factor(1.0)
                 
-                # source.set_position(coords)
                 source.set_position((coords[0], coords[1], 0))
                 opening.setSoundSource(source)
         return self.listener
@@ -140,7 +138,6 @@ class SoundGenerator():
         self.listener.move_to((x, y, 0))
         for opening in self.openingDict.values():
             coords = opening.getLocation()
-            # print(self.distanceToListener(coords[0], coords[1]))
             wallcount = self.grid.getObstructionsInLine(self.grid.pixelsBetweenTwoPoints(x, y, coords[0], coords[1]), opening.getPixels())
             if wallcount < 1:
                 self.sourcesToPlay.append(opening)
@@ -159,12 +156,10 @@ class SoundGenerator():
         for opening in self.sourcesToPlay:
             player = opening.getSoundSource()
             player.play()
-            print("playing " + str(player.position))
             time.sleep(0.1)
             while player.get_state() == AL_PLAYING:
             # wait until the file is done playing
                 time.sleep(0.5)
-            print("finished playing " + str(player.position))
         time.sleep(0.1)
         
         # release the Openal resources

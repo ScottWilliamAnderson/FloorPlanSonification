@@ -25,22 +25,12 @@ class MapGenerator:
     def create(self):
         """main function to convert the DeepFloorPlan output to an image compatible with the grid
         """        
-        # # convert the jpg of the model to a png
-        # try:
-        #     self.saveAsPNG()
-        # except:
-        #     print("couldn't save as PNG")
-        #     pass
         # create the grid based on the model output
         self.createGrid(filename="result.png")
-        print("populating the grid with data")
         # populate the empty grid with the model output RGB values
         self.grid = self.populateGrid(self.floorplan.size[0], self.grid, self.floorplan)
-        # print(self.grid.getAsList())
-        print("fixing ML output noise")
         # Gaussian Blur to remove jpg noise, and to fix overfitting of the tiles
         self.blurGrid()
-        print("adjusting final map")
         # first replaces all pixel colours with the closest tile colour, then shrinks the grid to final size 
         self.fixNoise()
         # replaces all pixel colours on the final size grid with the closest tile colour to further reduce blur noise from shrinkage
@@ -59,7 +49,6 @@ class MapGenerator:
             self.createGrid(fromMemory=True, filename="example.png")
         else:
             self.createGrid(fromMemory=False, filename="saved.png")
-        print("populating the grid with data")
         self.grid = self.populateGrid(self.finalSize, self.grid, self.floorplan)
         self.floorplan.close()
         
@@ -80,7 +69,6 @@ class MapGenerator:
         """        
         if fromMemory == True:
             path = os.path.join("map", filename)
-            # print("opening " + str(path))
             self.floorplan = Image.open(path)
             
             self.grid = Grid(self.floorplan.size[0], self.floorplan.size[0])
@@ -103,7 +91,6 @@ class MapGenerator:
         for x in range(0, gridsize):
             for y in range(0, gridsize):
                 givenGrid.populate(x, y, image.getpixel((x,y)))
-                # print(givenGrid.getRGBValue(x, y))
         return givenGrid
                 
     def blurGrid(self):
@@ -112,7 +99,6 @@ class MapGenerator:
         """        
         printedGrid = Image.new('RGB', (self.workingGridSize, self.workingGridSize))
         printedGrid.putdata(self.grid.getAsList())
-        # also rotates and transposes the image to handle having put the data in as a list 
         adjustedGrid = printedGrid.rotate(90).transpose(Image.FLIP_TOP_BOTTOM).filter(GaussianBlur(radius=1))
         adjustedGrid.save(os.path.join("map","blurredGrid.png"))
     

@@ -233,10 +233,8 @@ class Grid():
         """
         searchGrid = copy.deepcopy(self)
         resultList = list()
-        # print(searchGrid.getSizeX(), searchGrid.getSizeY())
         for x in range(searchGrid.getSizeX()):
             for y in range(searchGrid.getSizeY()):
-                # print("looking at " + str(x) + ", " + str(y))
                 if searchGrid.getTileType(x, y) == tile:
                     adjacentTiles = list(
                         searchGrid.getAdjacentTiles(x, y).values())
@@ -400,11 +398,8 @@ class Grid():
         y = 0
 
         for x in range(deltaX, min(deltaX + openingListLength, self.getSizeX())):
-            # print("checking: " + str((startX + x*xx + y*yx, startY + x*xy + y*yy)))
-            # print(self.getTileType(startX + x*xx + y*yx, startY + x*xy + y*yy))
             if 0 <= (startX + x*xx + y*yx) < self.getSizeX() and 0 <= (startY + x*xy + y*yy) < self.getSizeY():
                 if not self.getTileType(startX + x*xx + y*yx, startY + x*xy + y*yy) == "opening":
-                    # print(str((startX + x*xx + y*yx, startY + x*xy + y*yy)) + " is not an opening")
                     if len(line) < 2:
                         line.append(
                             (startX + x*xx + y*yx, startY + x*xy + y*yy))
@@ -412,7 +407,6 @@ class Grid():
                     y += 1
                     D -= 2 * deltaX
                 D += 2 * deltaY
-        # print("passthroughPixels: " + str(line))
         return line
 
     # todo: remove OpeningX and openingY, replace with averagePixel()
@@ -438,7 +432,6 @@ class Grid():
                 if adjacent[adjacentPixel] not in pixelsToSearch:
                     pixelsToSearch.append(self.getTileType(
                         adjacent[adjacentPixel][0], adjacent[adjacentPixel][1]))
-        # print(pixelsToSearch)
         tileCounts = Counter(pixelsToSearch)
         return tileCounts.most_common(1)[0][0]
 
@@ -485,26 +478,19 @@ class Grid():
         Returns:
             Grid: the crushed grid post-processing
         """
-        # print(givenGrid.getRGBValue(0, 0))
         crushedGrid = Grid(givenGrid.getSizeX(), givenGrid.getSizeY())
         for x in range(0, crushedGrid.getSizeX()):
             for y in range(0, crushedGrid.getSizeY()):
                 closestColour = None
                 closestDistance = (256*256*256*256+1)
-                # print("looking at pixel " + str(x) + ", "+ str(y))
                 for colour in rgbMap:
                     distance = givenGrid.rgbDistance(
                         givenGrid.grid[x, y], rgbMap.get(colour))
-                    # print("distance to " + str(colour) + " is " + str(distance))
-                    # print("closestDistance = " + str(closestDistance))
                     if distance < float(closestDistance):
                         closestDistance = distance
                         closestColour = colour
 
-                # print("closest colour is " + str(closestColour) + " at distance " + str(closestDistance))
-                # print(rgbMap.get(closestColour))
                 rgb = rgbMap.get(closestColour, (255, 255, 255, 255))
-                # print(rgb)
                 crushedGrid.populate(x, y, rgb)
 
         return crushedGrid

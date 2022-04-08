@@ -97,7 +97,6 @@ expectedTileSearchResult = [[(10, 0), (10, 1), (11, 1), (11, 2)],
 
 
 @given(st.integers(), st.integers())
-# @settings(max_examples)
 def gridSizeCheck(x, y):
     try:
         grid = Grid(x, y)
@@ -127,7 +126,6 @@ def getAsListTest(x, y, rgb):
         testAgainst[x][y] = (rgb[0], rgb[1], rgb[2], 255)
         assert testAgainst.flatten == grid.getAsList()
     except ValueError:
-        # print(x, y, rgb)
         assert True
 
 

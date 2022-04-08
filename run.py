@@ -31,7 +31,6 @@ class Gui():
         Returns:
             newHat (string): the hat icon representing the new direction the hat is facing (e.g. "HatRight.png")
         """
-        print("rotating hat")
         
         if buttonPressed == "e":
             if hat == "HatLeft.png":
@@ -88,7 +87,6 @@ class Gui():
     def useExample(self):
         """called when the user clicks on the use example button, and loads the example floor plan
         """        
-        print('clicked example Floor Plan')
         self.canvas.destroy()
         self.root.update()
         self.exampleGui()
@@ -98,8 +96,6 @@ class Gui():
             once the floor plan is uploaded, the DeepFloorPlan model is run with the provided image as input
             the result is saved, and the uploadedGui method is called to display it
         """        
-        print('clicked upload Floor Plan')
-        # root.withdraw()
 
         self.floorPlanPath=filedialog.askopenfilename(filetypes=[("JPG file", "*.jpg"), ("JPEG file", "*.jpeg")])
         self.canvas.destroy()
@@ -145,7 +141,6 @@ class Gui():
         Args:
             event (event): the click event
         """        
-        print("rotate counterclockwise")
         self.rotateHat(self.hatOrientation, "q")
         self.audio.sayOrientationChange(self.hatOrientation)
         
@@ -155,7 +150,6 @@ class Gui():
         Args:
             event (event): the click event
         """        
-        print("rotate clockwise")
         self.rotateHat(self.hatOrientation, "e")
         
 
@@ -194,10 +188,7 @@ class Gui():
         Returns:
             hat (tkinter image object): the hat image
         """        
-        print("preparing opening sources")
         self.listener = self.audio.prepareOpeningSources(math.floor(event.x / scale), math.floor(event.y / scale))
-        print("listener position: " + str(self.listener.position))
-        print(self.listener.get(AL_ORIENTATION))
         try:
             self.facing[self.listener.get(AL_ORIENTATION)]
         except:
@@ -215,22 +206,9 @@ class Gui():
             hatWidth = int((float(hatDir.size[0]) * float(ratio)))
             hatIcon = ImageTk.PhotoImage(hatDir.resize((hatWidth,hatHeight)))
         hat = self.canvas.create_image(event.x, event.y, image=hatIcon, anchor="center")
-        # hat = 
         self.canvas.tag_raise(hat)
         self.canvas.update()
         return hat
-        
-    # is not used
-    def loadPlayIcons(self):
-        """loads playing icon into the location of the click.
-            Currently unused
-        """        
-        playDir = Image.open(os.path.join(os.getcwd(), "sound", "playing.png"))
-        self.playIcons = self.audio.getOpeningSources(int(self.listener.position[0]), int(self.listener.position[1]))
-        for opening in self.playIcons:
-            opening.playIcon = self.canvas.create_image(math.floor(opening.getLocation()[0] * scale), math.floor(opening.getLocation()[1] * scale), image=ImageTk.PhotoImage(playDir), anchor="center")
-            self.canvas.tag_raise(opening.playIcon)
-        self.canvas.update()
 
     def mouseClick(self, event):
         """event handler for the click event.
@@ -239,9 +217,7 @@ class Gui():
         Args:
             event (event): the click event
         """        
-        print ("clicked at", math.floor(event.x / scale), math.floor(event.y / scale))
         hat = self.loadHat(event)
-        # self.loadPlayIcons()
         self.soundStage(math.floor(event.x / scale), math.floor(event.y / scale))
         self.canvas.delete(hat)
         self.canvas.delete
@@ -268,11 +244,9 @@ class Gui():
             then loads the map and the sound stage for the uploaded and processed floor plan
         """        
         self.newMap = mapGenerator.MapGenerator()
-        # newMap.create()
         self.newMap.create()
         
         self.newMap.grid.findOpenings()
-        # print(newMap.grid.getOpenings())
         
         self.audio = soundGenerator.SoundGenerator(self.newMap.grid, self.newMap.grid.getOpenings())
         self.listener = self.audio.getListener()
@@ -282,11 +256,11 @@ class Gui():
             then loads the map and the sound stage for the example floor plan
         """        
         self.newMap = mapGenerator.MapGenerator()
-        # newMap.create()
+
         self.newMap.createFromSaveFile(example=True)
         
         self.newMap.grid.findOpenings()
-        # print(newMap.grid.getOpenings())
+
         
         self.audio = soundGenerator.SoundGenerator(self.newMap.grid, self.newMap.grid.getOpenings())
         self.listener = self.audio.getListener()
@@ -302,7 +276,6 @@ class Gui():
         if x < self.newMap.grid.getSizeX() and y < self.newMap.grid.getSizeY():
             self.audio.prepareOpeningSources(x, y)
             self.audio.sayLocation(x, y)
-            print("playing sources")
             self.audio.playOpeningSources(x, y)
         
 
