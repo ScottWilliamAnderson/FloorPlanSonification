@@ -108,36 +108,3 @@ To run the app in a Docker container using Docker Compose, follow these steps:
     docker-compose down
     ```
 
-## Running tests
-
-To run the tests with `python tests.py`, follow these steps:
-
-1. Open a terminal and navigate to the root directory of the repository.
-2. Run the tests using the following command:
-    ```bash
-    python tests.py
-    ```
-
-To run the tests using Docker Compose, follow these steps:
-
-1. Build the Docker image:
-    ```bash
-    docker-compose build
-    ```
-
-2. Start the Docker container:
-    ```bash
-    docker-compose up -d
-    ```
-
-3. Run the tests using the following command:
-    ```bash
-    docker-compose exec app uv run tests.py
-    ```
-
-4. To stop the Docker container, press `Ctrl+C` in the terminal where the container is running.
-
-5. To remove the Docker container, run:
-    ```bash
-    docker-compose down
-    ```
