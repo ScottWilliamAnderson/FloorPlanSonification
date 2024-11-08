@@ -1,14 +1,20 @@
-# Use the python:3.6 base image
-FROM python:3.6
+FROM python:3.12-slim-bookworm
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
-# Set the working directory
+# Set working directory
 WORKDIR /app
 
-# Copy the project files into the Docker image
-COPY . /app
+# Install uv
+RUN pip install uv
 
-# Install the required dependencies using pip
-RUN pip install --no-cache-dir -r reqs/requirements.txt
+# Copy application code
+COPY . .
 
-# Set the default command to run the app
-CMD ["python", "run.py"]
+# Install dependencies using uv
+RUN uv pip install -r requirements.txt
+
+# Expose the port where the app will run
+EXPOSE 8000
+
+# Run the application with uv
+CMD ["uv", "run", "run.py"]

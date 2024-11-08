@@ -1,4 +1,4 @@
 #!/bin/bash
 
-# Run tests using pytest
-pytest
+# Run tests using uv
+uv run tests.py
