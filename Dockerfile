@@ -4,9 +4,6 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 # Set working directory
 WORKDIR /app
 
-# Install uv
-RUN pip install uv
-
 # Copy application code
 COPY . .
 
