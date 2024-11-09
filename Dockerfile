@@ -11,7 +11,7 @@ RUN pip install uv
 COPY . .
 
 # Install dependencies using uv
-RUN uv pip install -r reqs/requirements.txt
+RUN uv pip install --system -r reqs/requirements.txt
 
 # Expose the port where the app will run
 EXPOSE 8000
