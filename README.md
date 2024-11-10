@@ -1,4 +1,3 @@
-
 Project Presentation:
 
 
@@ -85,4 +84,27 @@ The surrounding doors and windows will be represented through directional sound,
 To exit the program, press *esc*
 
 A good way to map out the floor plan in your mind: try listening in each room!
+
+## Running the app in a Docker container
+
+To run the app in a Docker container using Docker Compose, follow these steps:
+
+1. Build the Docker image:
+    ```bash
+    docker-compose build
+    ```
+
+2. Start the Docker container:
+    ```bash
+    docker-compose up
+    ```
+
+3. Access the app in your web browser at `http://localhost:8000`.
+
+4. To stop the Docker container, press `Ctrl+C` in the terminal where the container is running.
+
+5. To remove the Docker container, run:
+    ```bash
+    docker-compose down
+    ```
 

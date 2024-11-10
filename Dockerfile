@@ -1,0 +1,17 @@
+FROM python:3.7-slim-bookworm
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+
+# Set working directory
+WORKDIR /app
+
+# Copy application code
+COPY . .
+
+# Install dependencies using uv
+RUN uv pip install --system -r reqs/requirements.txt
+
+# Expose the port where the app will run
+EXPOSE 8000
+
+# Run the application with uv
+CMD ["uv", "run", "run.py"]
